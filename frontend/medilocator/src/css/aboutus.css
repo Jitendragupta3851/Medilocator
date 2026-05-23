@@ -1,0 +1,66 @@
+
+/* Page heading */
+h1.text-primary {
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
+}
+
+h1.text-primary::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #89aadb; /* Bootstrap primary color */
+  margin: 12px auto 0;
+  border-radius: 2px;
+}
+
+/* Paragraph styling */
+p.text-muted {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Card styling */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 15px;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Card titles */
+.card-title {
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+/* Icons inside cards */
+.card-body svg {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.card:hover svg {
+  transform: scale(1.1);
+}
+
+/* Mission section */
+.text-center.mt-5 h4 {
+  color: #2c3e50;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.text-center.mt-5 p {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}

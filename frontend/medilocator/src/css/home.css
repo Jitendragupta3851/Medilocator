@@ -1,0 +1,23 @@
+/* Hero Section
+.hero-section {
+  background: url("/medi.jpg") center/cover no-repeat;
+  height: 60vh;
+  position: relative;
+}
+
+.hero-section::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.6); /* dark overlay */
+/* } */
+
+/* .hero-section .container { */
+  /* position: relative; */
+  /* z-index: 2; */
+/* } */
+
+/* CTA Section */
+/* .cta-section { */
+  /* background: linear-gradient(90deg, #0d6efd, #25d366); */
+ /* }  */ 

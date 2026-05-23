@@ -1,0 +1,13 @@
+form{
+    text-align:center ;
+    background-color:rgb(36, 78, 131);
+    color: yellow;
+}
+.btn{
+    background-color: rgb(229, 100, 9);
+    color: yellow;
+    
+}
+.text-info{
+    -webkit-text-fill-color: black;
+}

@@ -1,0 +1,31 @@
+.footer{
+    color:black;
+
+    background-color:yellow;
+    height: 40px;
+    width: 100%;
+    position:fixed;
+    position:relative;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; 
+    padding-left:  30px;
+    padding-right: 30px;
+}
+        .footer div {
+            display: flex;
+            align-items: center;
+            margin-left: 50px ;
+            margin-right: 50px;
+        }
+
+        .footer i {
+            margin-right: 5%;
+            color: rgb(224, 43, 43);
+            
+        }
+    
+
+        
