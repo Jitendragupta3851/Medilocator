@@ -1,20 +1,2 @@
-# dependencies
-node_modules/
-
-# env files
 .env
-
-# logs
-logs
-*.log
-
-# uploads/temp
-uploads/
-temp/
-
-# editor files
-.vscode/
-
-# OS files
-.DS_Store
-Thumbs.db
+node_modules/
