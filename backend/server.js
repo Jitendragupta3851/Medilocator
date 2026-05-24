@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import commonRouter from "./router/Common_Router.js";
 import { dbConnect } from "./database/dbInfo.js";
-import userRouter from "./router/User_Rouer.js";
+import userRouter from "./router/User_Router.js";
 import adminRouter from "./router/Admin_Router.js";
 import shopOwnerRouter from "./router/ShopOwner_Router.js";
 
