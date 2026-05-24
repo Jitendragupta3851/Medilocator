@@ -1,10 +1,10 @@
 import mongoose from 'mongoose'
 
-const DBURL=`mongodb+srv://jitendra:jitendra123@mycluster.cagwl7b.mongodb.net/project_db`
 
 export const dbConnect=async()=>{
      try{
-         const connection= await mongoose.connect(DBURL)
+        //  const connection= await mongoose.connect(DBURL)
+         const connection= await mongoose.connect(process.env.MONGO_URI)
          console.log(`database connection established successfully`);
          
      }
