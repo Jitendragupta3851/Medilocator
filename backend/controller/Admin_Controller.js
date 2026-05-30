@@ -1,4 +1,4 @@
-import AdminModel from "../model/Admin_model.js";
+import AdminModel from "../model/Admin_Model.js";
 import mongoose from "mongoose";
 import ContactModel from "../model/Contact_Model.js";
 import FeedBackModel from "../model/FeedBack_Model.js";
