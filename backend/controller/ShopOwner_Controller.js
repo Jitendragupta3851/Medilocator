@@ -64,9 +64,8 @@ export async function shopLogin(request,response){
        
     }
     catch (error) {
-
         console.log(error);
-
+        response.status(500).json({ "message": "Unable to process login" });
     }
 
 }

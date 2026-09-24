@@ -1,34 +1,40 @@
 
-# Backend
+# Dependencies and build output
+**/node_modules/
+**/dist/
+**/build/
 
+# Environment files and secrets
+**/.env
+**/.env.*
+!**/.env.example
 
-backend/node_modules/
-backend/.env
-backend/logs/
-backend/uploads/
-
-
-# Frontend
-
-
-frontend/medilocator/node_modules/
-frontend/medilocator/dist/
-frontend/medilocator/build/
-frontend/medilocator/.env
-
-# Common
-
+# Runtime files
+**/logs/
+**/uploads/
+**/tmp/
+**/temp/
+**/.vercel/
+**/coverage/
+**/.parcel-cache/
+**/.cache/
 *.log
+*.pid
+*.pid.lock
+*.seed
+*.tgz
+
+# Local dotenv backups
+**/.env.backup
+
+# Package-manager logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
 .vscode/
 .idea/
-
 .DS_Store
 Thumbs.db
-
-.cache/
 *.tmp
 *.temp

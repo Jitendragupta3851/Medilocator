@@ -35,7 +35,7 @@ const URL = "http://localhost:3000/admin/adminLogin"
         }
         catch(error){
             console.log(error);
-
+            alert(error.response?.data?.message || "Login failed. Please try again.")
         }
     }
     return (

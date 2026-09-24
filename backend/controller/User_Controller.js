@@ -17,9 +17,8 @@ export async function addFeedback(request, response) {
         response.json({ "message": "The process has successfully completed" })
     }
     catch (error) {
-
         console.log(error);
-
+        response.status(500).json({ "message": "Unable to process login" });
     }
 
 }

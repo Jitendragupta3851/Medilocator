@@ -12,19 +12,23 @@ dotenv.config();
 // creating server
 const serverApp=express()
 
-const PORTNUMBER=process.env.PORT
+const allowedOrigins = process.env.FRONTEND_URL
+    ? process.env.FRONTEND_URL.split(",").map((origin) => origin.trim())
+    : true
 
-//creating URL for localhost
-serverApp.listen(PORTNUMBER,()=>{
+serverApp.use(cors({ origin: allowedOrigins }))
 
-    console.log(`server is listening on http://localhost:${PORTNUMBER}`);
-    
-})
+if (!process.env.VERCEL) {
+    const port = process.env.PORT || 3000
+    serverApp.listen(port, () => {
+        console.log(`server is listening on http://localhost:${port}`)
+    })
+}
+
 //database connection function calling
 dbConnect()
 
 // configure Router in server using use() function(middleware)
-serverApp.use(cors()) //for communicate wi
 serverApp.use(express.json())
 serverApp.use(express.static("public")) // to tell the server that all docs
 
@@ -32,6 +36,10 @@ serverApp.use("/",commonRouter)
 serverApp.use("/admin",adminRouter)
 serverApp.use("/user",userRouter)
 serverApp.use("/shopOwner",shopOwnerRouter)
+
+export default serverApp
+
+
 
 
 

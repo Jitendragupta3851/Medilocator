@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import ShopOwnerHeader from '../shopOwner/ShopOwnerHeader'
 import { useNavigate } from 'react-router-dom'
 import Footer from '../Footer'
+import { apiUrl } from '../../config.js'
 
 function ShopOwnerHome() {
     const URL = "http://localhost:3000/shopOwner/shopOwnerProfile"
@@ -37,7 +38,7 @@ function ShopOwnerHome() {
             {/* <h1>Welcome Shop Owner <br />{emailId}</h1> */}
             
             <div className="card" style={{ width: "40%", marginLeft: "auto", marginRight: "auto", textAlign: "center", marginTop: "50px" }}>
-                <img src={`http://localhost:3000/profilePics/${profile.pic}`} className="card-img-top " alt="..." style={{ width: "50%", height: "150px", marginLeft: "auto", marginRight: "auto" }} />
+                <img src={apiUrl(`/profilePics/${profile.pic}`)} className="card-img-top " alt="..." style={{ width: "50%", height: "150px", marginLeft: "auto", marginRight: "auto" }} />
                 <div className="card-body">
                     <h1 className="card-title">Welcome ShopOwner <br /> {emailId}</h1>
                     <h3>Name:{profile.name}</h3>

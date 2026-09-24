@@ -25,7 +25,7 @@ response.json({"message":"Invalid Credentials"})
     }
     catch(error){
         console.log(error);
-        
+        response.status(500).json({ "message": "Unable to process login" });
     }
 
 
