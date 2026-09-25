@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import UserHeader from '../user/UserHeader'
 import { useNavigate } from 'react-router-dom'
 import Footer from '../Footer'
-import { apiUrl } from '../../config.js'
+import { mediaUrl } from '../../config.js'
 
 function UserHome() {
     const URL = "http://localhost:3000/user/userProfile"
@@ -37,7 +37,7 @@ function UserHome() {
             <UserHeader />
             
             <div className="card" style={{ width: "40%", marginLeft: "auto", marginRight: "auto", textAlign: "center", marginTop: "50px" }}>
-                <img src={apiUrl(`/profilePics/${profile.pic}`)} className="card-img-top" alt="..." style={{ width: "50%", height: "150px", marginLeft: "auto", marginRight: "auto"}} />
+                <img src={mediaUrl(profile.pic)} className="card-img-top" alt="..." style={{ width: "50%", height: "150px", marginLeft: "auto", marginRight: "auto"}} />
                 <div className="card-body">
                     <h1 className="card-title">Welcome user <br /> {emailId}</h1>
                     <h3>Name:{profile.name}</h3>

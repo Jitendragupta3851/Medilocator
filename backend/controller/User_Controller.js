@@ -3,6 +3,7 @@ import mongoose from "mongoose"
 import userModel from '../model/User_Model.js';
 import ProductModel from '../model/ShopDetail.js'
 import ShopDetailModel from "../model/ShopDetail.js";
+import { uploadProfileImage } from "../utility/cloudinary.js";
 
 
 export async function addFeedback(request, response) {
@@ -31,8 +32,9 @@ export async function registration(request,response)
             return response.status(400).json({ message: "Profile image is required", status: "error" })
         }
 
+        const uploadedImage = await uploadProfileImage(request.file.buffer)
         const regDoc = new userModel({
-            email, password, name, phone, city, address, pic: request.file.filename
+            email, password, name, phone, city, address, pic: uploadedImage.secure_url
         })
         await regDoc.save()
         response.status(201).json({ message: "Registration Done", status: "success" })

@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import ShopOwnerModel from "../model/ShopOwner_Model.js";
 import ShopDetailModel from "../model/ShopDetail.js";
+import { uploadProfileImage } from "../utility/cloudinary.js";
 import { request, response } from "express";
 
 
@@ -36,8 +37,9 @@ export async function registration(request,response)
             return response.status(400).json({ message: "Profile image is required", status: "error" })
         }
 
+        const uploadedImage = await uploadProfileImage(request.file.buffer)
         const regDoc = new ShopOwnerModel({
-            email, password, name, phone, city, address, pic: request.file.filename
+            email, password, name, phone, city, address, pic: uploadedImage.secure_url
         })
         await regDoc.save()
         response.status(201).json({ message: "Registration Done", status: "success" })
