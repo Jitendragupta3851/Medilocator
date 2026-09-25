@@ -3,6 +3,7 @@ import Header from "../Header"
 import '../../css/userRegistration.css'
 import { useState,useRef } from "react"
 import axios from "axios"
+import { apiUrl } from "../../config.js"
 
 function UserRegistration() {
     const fileInputRef=useRef(null)
@@ -16,7 +17,7 @@ function UserRegistration() {
         address:""
     })
     const [pic,setPic]=useState(null)
-const URL="http://localhost:3000/user/register"
+const URL = apiUrl("/user/register")
     const fetchData=(e)=>{
         const{name,value,type,files}=e.target; //destructure
 
@@ -34,8 +35,6 @@ const URL="http://localhost:3000/user/register"
     const submitData=async(e)=>
     {
         e.preventDefault()
-        alert("in submit")
-        console.log(pic);
 // setting all data in format of object
         const formData= new FormData();
         for (const key in regData )
@@ -56,15 +55,16 @@ const URL="http://localhost:3000/user/register"
  
         const serverResponse=await axios.post(URL,formData)
         console.log(serverResponse.data.message);
-        alert("submit")
+        alert(serverResponse.data.message)
         setRegData({email:"",password:"",name:"",phone:"",city:"",address:""})
-        setPic("null")
+        setPic(null)
         fileInputRef.current.value=null; //it is used to clear file field
         
 
         }
         catch(error){
             console.log(error);
+            alert(error.response?.data?.message || "Registration failed. Please try again.")
             
         }
         

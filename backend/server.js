@@ -11,26 +11,46 @@ dotenv.config();
 
 // creating server
 const serverApp=express()
+const databaseReady = dbConnect()
 
-const allowedOrigins = process.env.FRONTEND_URL
+const configuredOrigins = process.env.FRONTEND_URL
     ? process.env.FRONTEND_URL.split(",").map((origin) => origin.trim())
     : true
 
-serverApp.use(cors({ origin: allowedOrigins }))
+serverApp.use(cors({
+    origin: (origin, callback) => {
+        const isLocalOrigin = origin?.startsWith("http://localhost:")
+        const isConfiguredOrigin = configuredOrigins === true || configuredOrigins.includes(origin)
+        callback(null, !origin || isLocalOrigin || isConfiguredOrigin)
+    }
+}))
 
+// Connect before accepting requests so login queries never run during startup.
 if (!process.env.VERCEL) {
     const port = process.env.PORT || 3000
-    serverApp.listen(port, () => {
-        console.log(`server is listening on http://localhost:${port}`)
-    })
+    databaseReady
+        .then(() => {
+            serverApp.listen(port, () => {
+                console.log(`server is listening on http://localhost:${port}`)
+            })
+        })
+        .catch(() => {
+            console.error("server startup aborted because database connection failed")
+        })
 }
-
-//database connection function calling
-dbConnect()
 
 // configure Router in server using use() function(middleware)
 serverApp.use(express.json())
 serverApp.use(express.static("public")) // to tell the server that all docs
+
+serverApp.use(async (_request, response, next) => {
+    try {
+        await databaseReady
+        next()
+    } catch (_error) {
+        response.status(503).json({ message: "Database is unavailable", status: "error" })
+    }
+})
 
 serverApp.use("/",commonRouter)
 serverApp.use("/admin",adminRouter)

@@ -25,21 +25,21 @@ export async function addFeedback(request, response) {
 
 export async function registration(request,response)
 {
-    const registrationData=request.body
-    const {email,password,name,phone,city,address}=registrationData
-    const pic=request.file.filename
-console.log(`pic name is ${pic}`);
+    try {
+        const { email, password, name, phone, city, address } = request.body
+        if (!request.file) {
+            return response.status(400).json({ message: "Profile image is required", status: "error" })
+        }
 
-try{
-    const regDoc=new userModel({email,password,name,phone,city,address,pic})
-    await regDoc.save()
-    response.json({"message":"Registration Done"})
-
-}
-catch(error){
-    console.log(error);
-    
-}
+        const regDoc = new userModel({
+            email, password, name, phone, city, address, pic: request.file.filename
+        })
+        await regDoc.save()
+        response.status(201).json({ message: "Registration Done", status: "success" })
+    } catch (error) {
+        console.error("User registration failed:", error)
+        response.status(500).json({ message: "Unable to process registration", status: "error" })
+    }
 
 }
 
@@ -52,14 +52,14 @@ export async function userLogin(request,response){
         if(userDoc!=null){
  response.json({"message":"loginSuccessful","token":email,"status":"success"})
         }else{
-            response.json({"message":"Invalid Credentials"})
+            response.status(401).json({"message":"Invalid Credentials","status":"error"})
         }
        
     }
     catch (error) {
 
         console.log(error);
-
+        response.status(500).json({ "message": "Unable to process login", "status": "error" });
     }
 
 }

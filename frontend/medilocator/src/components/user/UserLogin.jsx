@@ -3,12 +3,13 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Header from "../Header"
 import Footer from "../Footer"
+import { apiUrl } from "../../config.js"
 
 function UserLogin() {
     const navigate = useNavigate()
     const [loginData, setLoginData] = useState({ email: "", password: "", })
 
-    const URL = "http://localhost:3000/user/userLogin"
+    const URL = apiUrl("/user/userLogin")
     const fetchData = (e) => {
         setLoginData({ ...loginData,[e.target.name]:e.target.value })
     }

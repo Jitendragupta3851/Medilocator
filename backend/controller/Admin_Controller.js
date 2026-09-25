@@ -19,13 +19,13 @@ if(adminDoc!=null)
 response.json({"message":"Login Successful","token":email,"status":"success"})
 }
 else{
-response.json({"message":"Invalid Credentials"})
+response.status(401).json({"message":"Invalid Credentials","status":"error"})
 }
 
     }
     catch(error){
         console.log(error);
-        response.status(500).json({ "message": "Unable to process login" });
+        response.status(500).json({ "message": "Unable to process login", "status": "error" });
     }
 
 

@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom"
 import axios from 'axios'
 import Header from "../Header";
 import Footer from "../Footer";
+import { apiUrl } from "../../config.js"
 
 function ShopLogin() {
     const Navigate = useNavigate();
     const [loginData, setLoginData] = useState({ email: "", password: ""})
 
-    const URL = "http://localhost:3000/shopOwner/shopLogin"
+    const URL = apiUrl("/shopOwner/shopLogin")
     const fetchData = (e) => {
         setLoginData({ ...loginData,[e.target.name]:e.target.value })
     }

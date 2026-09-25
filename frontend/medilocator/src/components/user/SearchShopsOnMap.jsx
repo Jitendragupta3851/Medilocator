@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import UserHeader from "./UserHeader";
+import { apiUrl } from "../../config.js";
 
 
 const SearchShopsOnMap = () => {
@@ -10,10 +11,10 @@ const SearchShopsOnMap = () => {
     const [locationData, setLocationData] = useState([]);
 
 
-    const FetchData = async (e) => {
+    const FetchData = async () => {
 
         try {
-            const serverResponse = await axios.get("http://localhost:3000/user/searchShops")
+            const serverResponse = await axios.get(apiUrl("/user/searchShops"))
 
            // console.log(res.data.data);
            const serverdata=serverResponse.data.data
@@ -34,14 +35,15 @@ const SearchShopsOnMap = () => {
     const markerLayerGroup = useRef(null);
 
     useEffect(() => {
-        mapInstance.current = L.map(mapRef.current).setView([20.5937, 78.9629], 5);
+        const leaflet = window.L;
+        mapInstance.current = leaflet.map(mapRef.current).setView([20.5937, 78.9629], 5);
 
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        leaflet.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             maxZoom: 19,
             attribution: "© OpenStreetMap contributors",
         }).addTo(mapInstance.current);
 
-        markerLayerGroup.current = L.layerGroup().addTo(mapInstance.current);
+        markerLayerGroup.current = leaflet.layerGroup().addTo(mapInstance.current);
 
         return () => {
             mapInstance.current.remove();
@@ -49,6 +51,7 @@ const SearchShopsOnMap = () => {
     }, []);
 
     const handleSearch = () => {
+        const leaflet = window.L;
         const query = document.getElementById("search").value;
         const radius = parseFloat(document.getElementById("radius").value) * 1000;
 
@@ -70,7 +73,7 @@ const SearchShopsOnMap = () => {
                 markerLayerGroup.current.clearLayers();
                 if (shapeRef.current) mapInstance.current.removeLayer(shapeRef.current);
 
-                const circle = L.circle([latNum, lonNum], {
+                const circle = leaflet.circle([latNum, lonNum], {
                     color: "blue",
                     fillColor: "#30c3fd",
                     fillOpacity: 0.3,
@@ -79,12 +82,12 @@ const SearchShopsOnMap = () => {
                 shapeRef.current = circle;
 
                 // Add searched marker
-                const searchIcon = L.divIcon({
+                const searchIcon = leaflet.divIcon({
                     className: "custom-fa-icon",
                     html: `<i class="fas fa-map-marker-alt" style="color: red; font-size: 24px;"></i>`,
                     iconSize: [24, 24],
                 });
-                L.marker([latNum, lonNum], { icon: searchIcon }).addTo(markerLayerGroup.current);
+                leaflet.marker([latNum, lonNum], { icon: searchIcon }).addTo(markerLayerGroup.current);
 
                 // Add all location markers within radius
                 locationData.forEach((loc) => {
@@ -94,13 +97,7 @@ const SearchShopsOnMap = () => {
                     const distance = mapInstance.current.distance([latNum, lonNum], [locLat, locLng]);
 
                     if (distance <= radius) {
-                        const icon = L.divIcon({
-                            className: "custom-fa-icon",
-                            html: `<i class="fas fa-home" style="font-size: 20px; color: green;"></i>`,
-                            iconSize: [20, 20],
-                        });
-
-                        const marker = L.marker([locLat, locLng], "fas fa-dna").addTo(markerLayerGroup.current);
+                        const marker = leaflet.marker([locLat, locLng]).addTo(markerLayerGroup.current);
                         marker.bindPopup(
                             `<strong>${loc["shopName"]}</strong><br>
 

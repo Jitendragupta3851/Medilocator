@@ -18,6 +18,10 @@
 **/coverage/
 **/.parcel-cache/
 **/.cache/
+
+# Runtime profile uploads; existing tracked assets remain tracked
+backend/public/profilePics/*
+
 *.log
 *.pid
 *.pid.lock

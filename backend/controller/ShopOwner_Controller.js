@@ -30,25 +30,21 @@ export async function viewShops(request,response)  //viewDetails
 
 export async function registration(request,response)
 {
-    const registrationData=request.body
-    const {email,password,name,phone,city,address}=registrationData
-    const pic=request.file.filename
+    try {
+        const { email, password, name, phone, city, address } = request.body
+        if (!request.file) {
+            return response.status(400).json({ message: "Profile image is required", status: "error" })
+        }
 
-    console.log(`picname is ${pic}`);
-    
-    try{
-        const regDoc=new ShopOwnerModel({email,password,name,phone,city,address,pic})
+        const regDoc = new ShopOwnerModel({
+            email, password, name, phone, city, address, pic: request.file.filename
+        })
         await regDoc.save()
-
-        
-    response.json({"message":"Registration Done"})
-
+        response.status(201).json({ message: "Registration Done", status: "success" })
+    } catch (error) {
+        console.error("Shop owner registration failed:", error)
+        response.status(500).json({ message: "Unable to process registration", status: "error" })
     }
-    catch(error){
-        console.log(error);
-        
-    }
-    
 }
 
 // shop owner login code
@@ -59,7 +55,7 @@ export async function shopLogin(request,response){
         if(userDoc!=null){
              response.json({"message":"loginSuccessful","token":email,"status":"success","_id":userDoc._id})
         }else{
-            response.json({"message":"Invalid Credentials"})
+            response.status(401).json({"message":"Invalid Credentials","status":"error"})
         }
        
     }

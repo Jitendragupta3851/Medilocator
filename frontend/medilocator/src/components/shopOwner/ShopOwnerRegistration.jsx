@@ -1,6 +1,7 @@
 import Footer from "../Footer"
 import Header from "../Header"
 import axios from "axios"
+import { apiUrl } from "../../config.js"
 
 import { useState } from "react"
 
@@ -14,7 +15,7 @@ function ShopOwnerRegistration() {
         address: ""
     })
     const [pic, setPic] = useState(null)
-    const URL = "http://localhost:3000/shopOwner/register"
+    const URL = apiUrl("/shopOwner/register")
     const fetchData = (e) => {
         const { name, value, type, files } = e.target; //destructure
 
@@ -31,8 +32,6 @@ function ShopOwnerRegistration() {
 
     const submitData = async (e) => {
         e.preventDefault()
-        alert("in submit")
-        console.log(pic);
         // setting all data in format of object
         const formData = new FormData();
         for (const key in regShop) {
@@ -69,6 +68,7 @@ function ShopOwnerRegistration() {
         }
         catch (error) {
             console.log(error);
+            alert(error.response?.data?.message || "Registration failed. Please try again.")
 
         }
 

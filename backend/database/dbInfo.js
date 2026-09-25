@@ -3,14 +3,20 @@ import mongoose from 'mongoose'
 
 export const dbConnect=async()=>{
      try{
-        //  const connection= await mongoose.connect(DBURL)
-         const connection= await mongoose.connect(process.env.MONGO_URI)
+       if (!process.env.MONGO_URI) {
+          throw new Error("MONGO_URI is not configured")
+       }
+
+       const connection= await mongoose.connect(process.env.MONGO_URI, {
+          serverSelectionTimeoutMS: 10000,
+          connectTimeoutMS: 10000
+       })
          console.log(`database connection established successfully`);
-         
+         return connection
      }
      catch(error){
         console.log(error);
-        
+        throw error
      }
 
 

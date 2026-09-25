@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import Header from "../Header"
 import Footer from "../Footer"
+import { apiUrl } from "../../config.js"
 
 function AdminLogin() {
     const Navigate=useNavigate()
@@ -11,7 +12,7 @@ function AdminLogin() {
             password: "",
 
         })
-const URL = "http://localhost:3000/admin/adminLogin"
+const URL = apiUrl("/admin/adminLogin")
     const fetchData = (e) => {
         setLoginData({ ...loginData,[e.target.name]:e.target.value })
     }

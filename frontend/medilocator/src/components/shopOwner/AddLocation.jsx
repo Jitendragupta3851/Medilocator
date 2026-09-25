@@ -1,13 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import {useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import ShopOwnerHeader from "./ShopOwnerHeader";
 
 const AddLocation = () => {
    const URL="http://localhost:3000/shopOwner/updateLocation"
 
-  const ownerEmail=localStorage.getItem("emailKey")
   const location=useLocation()
   const {productinfo}=location.state
  // const navigate = useNavigate()
@@ -61,6 +59,7 @@ const AddLocation = () => {
   }, []);
 
   const  handleSearch = () => {
+    const leaflet = window.L;
     const query = document.getElementById("search").value;
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
       query
@@ -83,7 +82,7 @@ const AddLocation = () => {
           }
 
           // Add a new marker to the searched location
-          const newMarker = L.marker([lat, lon])
+          const newMarker = leaflet.marker([lat, lon])
             .addTo(mapInstance.current)
             .bindPopup("Location found!")
             .openPopup();

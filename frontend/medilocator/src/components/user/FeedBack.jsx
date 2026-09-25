@@ -6,8 +6,6 @@ import Footer from '../Footer'
 import UserHeader from '../user/UserHeader'
 
 function FeedBack() {
-    const email=localStorage.getItem("emailKey")
-    const user=JSON.parse(localStorage.getItem("user"))
      const [feedback, setFeedback] = useState({ name: "", email: "", rating: "", remarks: "" })
 
     const URL = "http://localhost:3000/user/addFeedback"
